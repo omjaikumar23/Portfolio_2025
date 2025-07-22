@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Jaikumar - Portfolio</title>
+    
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (kept for potential use elsewhere, though not in nav) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* CSS Variables for easy color management */
+        :root {
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --text-dark: #212529;
+            --text-muted: #6C757D;
+            --primary-blue: #007BFF;
+            --primary-blue-dark: #0056b3;
+            --border-light: #DEE2E6;
+            --primary: #2563eb;
+            --dark: #1f2937;
+            --light-gray: #e5e7eb;
+        }
+
+        /* Basic Reset and Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Reusable Components */
+        section {
+            padding: 80px 0;
+        }
+        
+        main section:nth-of-type(even) {
+             background-color: var(--bg-white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-blue);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* === NEW HEADER & NAVIGATION STYLES (MODIFIED) === */
+        header {
+            background-color: #113c47;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* MODIFICATION: Added align-items: center to vertically center all nav children */
+        nav {
+            display: flex;
+            align-items: center; 
+            width: 100%;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: auto;
+            cursor: pointer;
+        }
+        /* MODIFICATION: Reset default ul margin and padding for precise alignment */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links li { 
+            margin-left: 20px; 
+        }
+        .nav-links a {
+            color: white; 
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: color 0.3s; 
+            padding: 5px 0; 
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 2px; 
+            bottom: 0; 
+            left: 0; 
+            background-color: var(--primary); 
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { 
+            width: 100%; 
+        }
+        .nav-links a:hover { 
+            color: var(--primary); 
+        }
+
+        .header-social-links { 
+            display: flex; 
+            align-items: center; 
+            margin-left: 30px; 
+            gap: 25px; 
+        }
+        .header-social-links a { 
+            color: white; 
+            display: inline-block; 
+            transition: transform 0.2s ease; 
+        }
+        .header-social-links a:hover { 
+            transform: scale(1.1); 
+        }
+        .header-social-links svg { 
+            width: 24px; 
+            height: 24px; 
+            fill: currentColor; 
+        }
+
+        #burger-menu { 
+            display: none; 
+            background: none; 
+            border: none; 
+            color: white; 
+            font-size: 28px; 
+            cursor: pointer; 
+            padding: 5px; 
+            margin-left: 15px; 
+        }
+
+
+        /* === ABOUT SECTION (Unchanged) === */
+        #about {
+            background-color: #d7ddbd; /*c0c0c0*/
+            padding-top: 140px; 
+            padding-bottom: 120px;
+        }
+        
+        #about .section-title::after {
+             background-color: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            border-radius: 50%;
+            max-width: 350px;
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.2);
+            border: 4px solid var(--bg-white);
+        }
+        
+        .about-text {
+            flex: 1.5;
+        }
+        .about-text p {
+             margin-bottom: 20px;
+             font-size: 1.05em;
+             color: #110414;
+             text-align: justify;
+        }
+        
+        /* === EXPERIENCE & EDUCATION SECTION STYLES (Unchanged) === */
+        #experience, #contact, #projects {
+            background-color: #f3f4f6;
+        }
+
+        .experience-item, .education-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-blue);
+        }
+        .experience-header, .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .experience-header > div:first-child, .education-header > div:first-child {
+            flex-grow: 1;
+        }
+        .company, .institution {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+        .position, .degree {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+        .date {
+            color: var(--text-muted);
+            white-space: nowrap;
+            text-align: right;
+            font-size: 0.9em;
+            padding-top: 3px;
+        }
+        .experience-item ul {
+            list-style-type: disc;
+            list-style-position: outside;
+            padding-left: 25px;
+            color: var(--text-muted);
+        }
+        .experience-item ul li {
+            margin-bottom: 8px;
+        }
+        
+        /* === SKILLS SECTION STYLES (Unchanged) === */
+        #skills {
+             background-color: var(--bg-white);
+        }
+        .skills-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+        }
+        .skill-category { 
+            background-color: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+        }
+        .skill-category h3 { 
+            font-size: 20px; 
+            margin-bottom: 20px; 
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 10px; 
+        }
+        .skills-list { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+        }
+        .skill-tag { 
+            background-color: var(--bg-light);
+            color: var(--text-dark); 
+            padding: 8px 15px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            border: 1px solid var(--border-light);
+            transition: background-color 0.3s, color 0.3s, transform 0.2s; 
+            cursor: default; 
+        }
+        .skill-tag:hover { 
+            background-color: var(--primary-blue);
+            color: white; 
+            transform: scale(1.05); 
+        }
+        
+        /* === PROJECTS SECTION STYLES (Unchanged) === */
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 30px; 
+        }
+        .project-card { 
+            background-color: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .project-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); 
+        }
+        .project-img { 
+            height: 220px; 
+            background-color: var(--border-light);
+            overflow: hidden; 
+        }
+        .project-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.4s ease; 
+        }
+        .project-card:hover .project-img img { 
+            transform: scale(1.08); 
+        }
+        .project-info { 
+            padding: 25px; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .project-info h3 { 
+            font-size: 20px; 
+            margin-bottom: 10px; 
+            color: var(--text-dark); 
+        }
+        .project-info p { 
+            color: var(--text-muted);
+            margin-bottom: 20px; 
+            flex-grow: 1; 
+            font-size: 0.95em;
+            text-align: justify;
+            
+        }
+        .project-info .skills-list { 
+            margin-top: auto; 
+        }
+
+
+        /* === CONTACT SECTION STYLES (Unchanged) === */
+        .contact-info {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+        .contact-info p strong {
+            color: var(--text-dark);
+            margin-right: 5px;
+        }
+        .contact-info p a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info p a:hover {
+            color: var(--primary-blue-dark);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            text-decoration: none;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            border-radius: 50%;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        .social-link:hover {
+            background-color: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer (Unchanged) */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--bg-light);
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        /* === RESPONSIVE DESIGN (with updated Nav styles) === */
+        @media (max-width: 992px) {
+            .logo { margin-right: 20px; }
+            .nav-links { display: none; }
+            .header-social-links { margin-left: auto; }
+            #burger-menu { display: block; }
+
+            .nav-links.active { 
+                display: flex; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                background: var(--dark); 
+                width: 100%; 
+                flex-direction: column; 
+                align-items: center; 
+                padding: 20px 0; 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2); 
+            }
+            .nav-links.active li { 
+                margin: 10px 0; 
+                width: 100%; 
+                text-align: center; 
+            }
+            .nav-links.active a { 
+                display: block; 
+                padding: 10px 0; 
+            }
+            .nav-links.active a::after { 
+                display: none; 
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            .about-image img {
+                max-width: 300px;
+                height: 300px;
+            }
+            .projects-grid { 
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-image img {
+                max-width: 250px;
+                height: 250px;
+            }
+            
+            .experience-header, .education-header, .contact-info {
+                justify-content: center;
+                text-align: center;
+            }
+            .experience-header > div:first-child, .education-header > div:first-child {
+                margin-bottom: 5px;
+            }
+            .date {
+                text-align: center;
+                width: 100%;
+            }
+            .projects-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .project-card { 
+                max-width: 400px; 
+                margin: 0 auto; 
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+             .header-social-links { display: none; }
+             #burger-menu { margin-left: auto; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- === MODIFIED HEADER SECTION === -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">Om Jaikumar</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="https://drive.google.com/file/d/1KjlcGNL-EDMPTWXIxDGkJhfdT5SMzwf1/view?usp=sharing" target="_blank">Resume</a></li>
+                </ul>
+                <div class="header-social-links">
+                    <a href="https://www.linkedin.com/in/om-jaikumar-879410224/" target="_blank" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://github.com/prajwalgotmare" target="_blank" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+                 <button id="burger-menu" aria-label="Toggle Menu">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- === ABOUT ME SECTION === -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="Image/myimage.JPG" alt="Om Jaikumar">
+                    </div>
+                    <div class="about-text">
+                        <p>A highly analytical and results-driven professional transitioning from a Mechanical Engineering background to the software industry. My experience as a Design Lead has instilled strong problem-solving and critical thinking skills, which I am eager to apply to software development utilizing my proficiency in Java, SQL, Python, and GitHub.</p>
+                        <p>I am passionate about leveraging technology to build innovative and efficient solutions. My hands-on project experience, from developing control systems for autonomous robots to data analysis, demonstrates my ability to bridge the gap between hardware and software and to tackle complex challenges systematically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- === WORK EXPERIENCE SECTION (NOW WITH TWO ITEMS) === -->
+        <section id="experience">
+            <div class="container">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div><div class="position">Patent Analyst Intern</div><div class="company">Sagacious Elevate</div></div><div class="date">JAN 2025 - MAY 2025</div>
+                    </div>
+                    <ul>
+                        <li>Worked in the Engineering Searching department, developing data-centric skills directly applicable to data analytics.</li>
+                        <li>Conducted patentability searches by translating complex technical concepts into strategic search queries to mine global patent databases.</li>
+                        <li>Systematically collected and filtered large volumes of technical data to identify relevant prior art.</li>
+                        <li>Analyzed unstructured information, recognized critical patterns, and assessed the novelty of inventions.</li>
+                    </ul>
+                </div>
+                <!-- === NEW WORK EXPERIENCE ITEM ADDED HERE === -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div><div class="position">Design Lead</div><div class="company">Team Hawks</div></div><div class="date">OCT 2023 - OCT 2024</div>
+                    </div>
+                    <ul>
+                        <li>Led a team in the design and analysis of a Go-Kart chassis and components.</li>
+                        <li>Utilized software like SolidWorks for 3D modeling and ANSYS for finite element analysis (FEA) to ensure structural integrity and performance.</li>
+                        <li>Managed project timelines and coordinated with fabrication teams to ensure accurate manufacturing of designed parts.</li>
+                        <li>This role honed my skills in systematic problem-solving, project management, and attention to detail.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SKILLS SECTION (Unchanged) === -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title">Skills & Technologies</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Programming & Tools</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Data & Tools</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">DBMS</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">MS-Office</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- === PROJECTS SECTION (Unchanged) === -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                     <div class="project-card">
+                        <div class="project-img"><img src="Image/Seed_sowing.png" alt="Autonomous Seed Sowing Machine"></div>
+                        <div class="project-info">
+                            <h3>Autonomous Seed Sowing Machine</h3>
+                            <p>Engineered an autonomous robot for precision agriculture. Developed the complete control system in Python on a Raspberry Pi, demonstrating skills in algorithm development, problem-solving, and systems integration.</p>
+                            <div class="skills-list">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Raspberry Pi</span>
+                                <span class="skill-tag">Systems Integration</span>
+                                <span class="skill-tag">SolidWorks</span>
+                                <span class="skill-tag">Ansys(FEA)</span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="project-card">
+                        <div class="project-img"><img src="Image/Hawks.png" alt="Go-kart design, production and competitive racing"></div>
+                        <div class="project-info">
+                            <h3>Go-Kart Design & Manufacturing</h3>
+                            <p>Led the design, analysis, and production of a competitive Go-Kart. Applied engineering principles and CAD/CAE software to create a high-performance vehicle for national-level competitions, focusing on vehicle dynamics and structural optimization.</p>
+                            <div class="skills-list">
+                                <span class="skill-tag">SolidWorks</span>
+                                <span class="skill-tag">Ansys</span>
+                                <span class="skill-tag">Creo</span>
+                                <span class="skill-tag">Catia</span>
+                                <span class="skill-tag">Data Collection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === EDUCATION SECTION (NOW WITH TWO ITEMS) === -->
+        <section id="education">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <div class="education-header">
+                        <div><div class="degree">Bachelor of Technology in Mechanical Engineering</div><div class="institution">Yeshwantrao Chavan College of Engineering, Nagpur</div></div><div class="date">November 2022 - June 2025</div>
+                    </div>
+                    <p>CGPA: 8.31/10 (First class with distinction)</p>
+                </div>
+                <!-- === NEW EDUCATION ITEM ADDED HERE === -->
+                 <div class="education-item">
+                    <div class="education-header">
+                        <div><div class="degree">Diploma in Mechanical Engineering</div><div class="institution">Government Polytechnic, Nagpur</div></div><div class="date">August 2019 - June 2022</div>
+                    </div>
+                    <p>Percentage: 91.55%</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- === CONTACT SECTION (Unchanged) === -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <a href="mailto:omjaikumar@gmail.com">omjaikumar@gmail.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+918407979906">+91 8407979906</a></p>
+                    <p><strong>Location:</strong> India</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/om-jaikumar-879410224/" target="_blank" class="social-link" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="https://github.com/prajwalgotmare" target="_blank" class="social-link" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- === FOOTER (Unchanged) === -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Om Jaikumar. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- === NEW JAVASCRIPT FOR NAVIGATION === -->
+    <script>
+        // --- Smooth Scroll for Nav Links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                // Ensure it's a valid hash link and not just "#"
+                if (href.startsWith('#') && href.length > 1) {
+                    e.preventDefault();
+                    try {
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            const headerOffset = document.querySelector('header')?.offsetHeight || 70; // Header height as fallback
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+
+                            // Close mobile menu if open
+                            const navLinksList = document.querySelector('.nav-links');
+                            if (navLinksList && navLinksList.classList.contains('active')) {
+                                navLinksList.classList.remove('active');
+                                document.getElementById('burger-menu')?.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    } catch (error) {
+                        console.error("Smooth scroll failed:", error);
+                    }
+                }
+            });
+        });
+
+        // --- Mobile Burger Menu Toggle ---
+        const burgerButton = document.getElementById('burger-menu');
+        const navLinksList = document.querySelector('.nav-links');
+
+        if (burgerButton && navLinksList) {
+            burgerButton.addEventListener('click', () => {
+                navLinksList.classList.toggle('active');
+                const isExpanded = navLinksList.classList.contains('active');
+                burgerButton.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+    </script>
+
+</body>
+</html>
